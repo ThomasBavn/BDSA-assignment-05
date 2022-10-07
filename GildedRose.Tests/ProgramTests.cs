@@ -2,16 +2,14 @@ namespace GildedRose.Tests;
 
 public class ProgramTests
 {
-    IList < Item > Items;
-    Program p;
+    IList<Item> _items;
+    Program _program;
 
-    public ProgramTests() {
-      p = new Program();
-      Items = new List<Item>();
-    }
-    [Fact]
-    public void TestTheTruth()
+    public ProgramTests()
     {
-        true.Should().BeTrue();
+        _program = new Program();
+        _items = new List<Item>();
     }
+
+
 }

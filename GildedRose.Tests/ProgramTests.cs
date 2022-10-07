@@ -48,4 +48,77 @@ public class ProgramTests
       Assert.Equal(80, Sulfuras2ElectricBoogaloo.Quality);
     }
 
+    [Fact]
+    public void BackstagePasses_will_increase_by_1_when_more_than_10_days_left() 
+    {
+      _items.Add(new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 5, Quality = 20 });
+
+      Item concertInFifteen = _items[0];
+
+      Assert.Equal(20, concertInFifteen.Quality);
+
+      _program.UpdateQuality();
+
+      Assert.Equal(23, concertInFifteen.Quality);
+
+      _program.UpdateQuality();
+      _program.UpdateQuality();
+      _program.UpdateQuality();
+      _program.UpdateQuality();
+
+      Assert.Equal(35, concertInFifteen.Quality);
+
+      _program.UpdateQuality();
+
+      Assert.Equal(0, concertInFifteen.Quality);
+    }
+
+    [Fact]
+    public void BackstagePasses_will_increase_by_2_when_there_is_less_than_ten_days_left() 
+    {
+      _items.Add(new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 10, Quality = 20 });
+
+      Item concertInTen = _items[0];
+
+      Assert.Equal(20, concertInTen.Quality);
+
+      _program.UpdateQuality();
+
+      Assert.Equal(22, concertInTen.Quality);
+
+      _program.UpdateQuality();
+      _program.UpdateQuality();
+      _program.UpdateQuality();
+      _program.UpdateQuality();
+
+      Assert.Equal(30, concertInTen.Quality);
+
+      _program.UpdateQuality();
+
+      Assert.Equal(33, concertInTen.Quality);
+    }
+
+    [Fact]
+    public void BackstagePasses_will_increase_Quality_by_3_when_less_than_five_days_left_but_become_worthless_after_the_sellby_Becomes_less_than_zero() 
+    {
+      _items.Add(new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 5, Quality = 20 });
+      Item concertInFive = _items[0];
+      
+      Assert.Equal(20, concertInFive.Quality);
+
+      _program.UpdateQuality();
+
+      Assert.Equal(23, concertInFive.Quality);
+
+      _program.UpdateQuality();
+      _program.UpdateQuality();
+      _program.UpdateQuality();
+      _program.UpdateQuality();
+      Assert.Equal(35, concertInFive.Quality);
+
+      _program.UpdateQuality();
+      Assert.Equal(0, concertInFive.Quality);
+    }
+
+
 }

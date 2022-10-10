@@ -245,6 +245,7 @@ public class ProgramTests
         _program.UpdateQuality();
         Assert.Equal(0, concertInFive.Quality);
     }
+    
 
 
 

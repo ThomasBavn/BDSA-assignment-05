@@ -19,15 +19,17 @@ public class Item
     public virtual int Quality
     {
         get { return _quality; }
-        set {
-          if(value > 50) _quality = 50;
-          else if(value < 0) _quality = 0;
-          else _quality = value;
+        set
+        {
+            if (value > 50) _quality = 50;
+            else if (value < 0) _quality = 0;
+            else _quality = value;
         }
     }
 
-    public virtual void Update() {
-      SellIn--;
-      Quality -= (SellIn < 0) ? 2 : 1;
+    public virtual void Update()
+    {
+        SellIn--;
+        Quality -= (SellIn < 0) ? 2 : 1;
     }
 }

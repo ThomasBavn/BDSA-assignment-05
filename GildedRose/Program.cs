@@ -7,10 +7,11 @@ public class Program
     public IList<Item> Items;
     static void Main(string[] args)
     {
-          System.Console.WriteLine("OMGHAI!");
+        System.Console.WriteLine("OMGHAI!");
 
-          var app = new Program() {
-            Items = new List < Item > {
+        var app = new Program()
+        {
+            Items = new List<Item> {
               new Item {
                 Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20
               },
@@ -47,17 +48,19 @@ public class Program
               }
             }
 
-          };
+        };
 
-          for (var i = 0; i < 31; i++) {
+        for (var i = 0; i < 31; i++)
+        {
             Console.WriteLine("-------- day " + i + " --------");
             Console.WriteLine("name, sellIn, quality");
-            for (var j = 0; j < app.Items.Count; j++) {
-              Console.WriteLine(app.Items[j].Name + ", " + app.Items[j].SellIn + ", " + app.Items[j].Quality);
+            for (var j = 0; j < app.Items.Count; j++)
+            {
+                Console.WriteLine(app.Items[j].Name + ", " + app.Items[j].SellIn + ", " + app.Items[j].Quality);
             }
             Console.WriteLine("");
             app.UpdateQuality();
-          }
+        }
 
     }
 

@@ -260,7 +260,20 @@ public class ProgramTests
         Assert.Equal(0, concertInFive.Quality);
     }
     
+    [Fact]
+    public void Conjured_item_will_degrade_twice_as_fast() {
+      _items.Add(new Conjured{Name = "Conjured Item", SellIn = 2, Quality = 20});
+      Item conjuredItem = _items[0];
 
+      _program.UpdateQuality();
+      Assert.Equal(18, conjuredItem.Quality);
+
+      _program.UpdateQuality();
+      Assert.Equal(16, conjuredItem.Quality);
+
+      _program.UpdateQuality();
+      Assert.Equal(12, conjuredItem.Quality);
+    }
 
 
 }

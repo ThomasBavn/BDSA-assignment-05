@@ -3,6 +3,7 @@ namespace GildedRose;
 
 public class Item
 {
+    private int _quality;
     public string Name
     {
         get;
@@ -15,23 +16,18 @@ public class Item
         set;
     }
 
-    public int Quality
+    public virtual int Quality
     {
-        get;
-        set;
+        get { return _quality; }
+        set {
+          if(value > 50) _quality = 50;
+          else if(value < 0) _quality = 0;
+          else _quality = value;
+        }
     }
 
     public virtual void Update() {
-      if (Quality > 0) {
-        Quality--;
-      }
-
       SellIn--;
-
-      if (SellIn < 0) {
-        if (Quality > 0) {
-          Quality--;
-        }
-      }
+      Quality -= (SellIn < 0) ? 2 : 1;
     }
 }

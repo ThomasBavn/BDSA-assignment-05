@@ -1,11 +1,10 @@
 namespace GildedRose;
 
 
-public class Cheese : Item
+public class Conjured : Item
 {
   public override void Update() {
     SellIn--;
-    Quality++;
-    if (SellIn < 0) Quality++;
+    Quality -= (SellIn < 0) ? 4 : 2;
   }
 }

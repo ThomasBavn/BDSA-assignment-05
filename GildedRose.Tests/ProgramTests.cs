@@ -15,7 +15,7 @@ public class ProgramTests
     [Fact]
     public void aged_brie_increases_quality_as_days_pass()
     {
-        _items.Add(new Item { Name = "Aged Brie", SellIn = 2, Quality = 0 });
+        _items.Add(new Cheese { Name = "Aged Brie", SellIn = 2, Quality = 0 });
 
         Item cheese = _items[0];
 
@@ -30,7 +30,7 @@ public class ProgramTests
     public void aged_brie_after_sellin()
     {
 
-        _items.Add(new Item { Name = "Aged Brie", SellIn = -2, Quality = 20 });
+        _items.Add(new Cheese { Name = "Aged Brie", SellIn = -2, Quality = 20 });
 
 
         _program.UpdateQuality();
@@ -86,29 +86,29 @@ public class ProgramTests
         new Item {
           Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20
         },
-        new Item {
+        new Cheese {
           Name = "Aged Brie", SellIn = 2, Quality = 0
         },
         new Item {
           Name = "Elixir of the Mongoose", SellIn = 5, Quality = 7
         },
-        new Item {
+        new Legendary {
           Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80
         },
-        new Item {
+        new Legendary {
           Name = "Sulfuras, Hand of Ragnaros", SellIn = -1, Quality = 80
         },
-        new Item {
+        new Ticket {
           Name = "Backstage passes to a TAFKAL80ETC concert",
           SellIn = 15,
           Quality = 20
         },
-        new Item {
+        new Ticket {
           Name = "Backstage passes to a TAFKAL80ETC concert",
           SellIn = 10,
           Quality = 49
         },
-        new Item {
+        new Ticket {
           Name = "Backstage passes to a TAFKAL80ETC concert",
           SellIn = 5,
           Quality = 49
@@ -139,8 +139,8 @@ public class ProgramTests
     [Fact]
     public void Sulfuras_Will_NEVER_age()
     {
-        _items.Add(new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80 });
-        _items.Add(new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = -1, Quality = 80 });
+        _items.Add(new Legendary { Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80 });
+        _items.Add(new Legendary { Name = "Sulfuras, Hand of Ragnaros", SellIn = -1, Quality = 80 });
 
         Item Sulfuras = _items[0];
         Item Sulfuras2ElectricBoogaloo = _items[1];
@@ -157,8 +157,8 @@ public class ProgramTests
     [Fact]
     public void Sulfuras_Will_NEVER_degrade()
     {
-        _items.Add(new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80 });
-        _items.Add(new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = -1, Quality = 80 });
+        _items.Add(new Legendary { Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80 });
+        _items.Add(new Legendary { Name = "Sulfuras, Hand of Ragnaros", SellIn = -1, Quality = 80 });
 
         Item Sulfuras = _items[0];
         Item Sulfuras2ElectricBoogaloo = _items[1];
@@ -175,7 +175,7 @@ public class ProgramTests
     [Fact]
     public void BackstagePasses_will_increase_by_1_when_more_than_10_days_left()
     {
-        _items.Add(new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 5, Quality = 20 });
+        _items.Add(new Ticket { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 5, Quality = 20 });
 
         Item concertInFifteen = _items[0];
 
@@ -200,34 +200,48 @@ public class ProgramTests
     [Fact]
     public void BackstagePasses_will_increase_by_2_when_there_is_less_than_ten_days_left()
     {
-        _items.Add(new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 10, Quality = 20 });
+        _items.Add(new Ticket { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 15, Quality = 20 });
 
         Item concertInTen = _items[0];
 
+        // Sellin = 15
         Assert.Equal(20, concertInTen.Quality);
 
         _program.UpdateQuality();
 
-        Assert.Equal(22, concertInTen.Quality);
+        // Sellin = 14
+        Assert.Equal(21, concertInTen.Quality);
+
+        for(int i = 0; i < 4; i++) {
+          _program.UpdateQuality();
+        }
+
+        // Sellin 10
+        Assert.Equal(25, concertInTen.Quality);
+
+        _program.UpdateQuality();
+        // Sellin 9
+        Assert.Equal(27, concertInTen.Quality);
+
+        _program.UpdateQuality();
+        // Sellin 8
+        Assert.Equal(29, concertInTen.Quality);
 
         _program.UpdateQuality();
         _program.UpdateQuality();
         _program.UpdateQuality();
+        // Sellin 5
+        Assert.Equal(35, concertInTen.Quality);
 
-        Assert.Equal(28, concertInTen.Quality);
-
+        // Sellin 4
         _program.UpdateQuality();
-        Assert.Equal(31, concertInTen.Quality);
-
-        _program.UpdateQuality();
-
-        Assert.Equal(34, concertInTen.Quality);
+        Assert.Equal(38, concertInTen.Quality);
     }
 
     [Fact]
     public void BackstagePasses_will_increase_Quality_by_3_when_less_than_five_days_left_but_become_worthless_after_the_sellby_Becomes_less_than_zero()
     {
-        _items.Add(new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 5, Quality = 20 });
+        _items.Add(new Ticket { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 5, Quality = 20 });
         Item concertInFive = _items[0];
 
         Assert.Equal(20, concertInFive.Quality);

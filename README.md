@@ -1,26 +1,12 @@
 # Assignment #5
 
-## Run test coverage
+## The reason why we changed the Item class
 
-Make sure you have the. this can be installed with
-`dotnet tool install -g dotnet-reportgenerator-globaltool`
+We changed the Item class because we think it is the best way to solve this problem, and eliminate code redundancy.
 
-After this generate the XML report
+The code report has the Main()-method commented out, as it is impossible to test this method.
 
-```
-dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
-```
 
-Generate HTML file from the XML report
-
-```
-reportgenerator
--reports:"Path\To\TestProject\TestResults\{guid}\coverage.cobertura.xml"
--targetdir:"coveragereport"
--reporttypes:Html
-```
-
-Open the `GildedRose_*.html` files in browser for the class report.
 
 ## C♯: Gilded Rose Refactoring Kata
 

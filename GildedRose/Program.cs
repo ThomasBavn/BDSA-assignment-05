@@ -43,7 +43,7 @@ public class Program
                   Quality = 49
               },
               // this conjured item does not work properly yet
-              new Item {
+              new Conjured {
                 Name = "Conjured Mana Cake", SellIn = 3, Quality = 6
               }
             }
